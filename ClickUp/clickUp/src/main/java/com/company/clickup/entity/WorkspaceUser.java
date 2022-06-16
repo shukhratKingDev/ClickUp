@@ -29,4 +29,6 @@ public class WorkspaceUser extends AbstractUUIDEntity {
     private Timestamp dateInvited;
     private Timestamp dateJoined;
 
+
+
 }

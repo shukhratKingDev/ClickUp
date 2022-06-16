@@ -9,6 +9,7 @@ import com.company.clickup.repository.UserRepository;
 import com.company.clickup.security.JwtProvider;
 import com.company.clickup.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,7 +33,7 @@ public class AuthServiceImpl implements UserDetailsService, AuthService {
   private AuthenticationManager authenticationManager;
   private JwtProvider jwtProvider;
   @Autowired
-    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, JavaMailSender javaMailSender, AuthenticationManager authenticationManager, JwtProvider jwtProvider) {
+    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, JavaMailSender javaMailSender, AuthenticationManager authenticationManager,  JwtProvider jwtProvider) {
         this.userRepository = userRepository;
       this.passwordEncoder = passwordEncoder;
       this.javaMailSender = javaMailSender;

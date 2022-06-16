@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -22,14 +23,14 @@ public class WorkspaceController {
         this.workspaceService = workspaceService;
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Response> addWorkspace(@RequestBody WorkspaceDto workspaceDto, @CurrentUser User user){
+    @PostMapping("/add")
+    public ResponseEntity<Response> addWorkspace(@Valid @RequestBody WorkspaceDto workspaceDto, @CurrentUser User user){
         Response response=workspaceService.addWorkspace(workspaceDto,user);
         return ResponseEntity.status(response.isSuccess()? HttpStatus.OK:HttpStatus.CONFLICT).body(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Response> editWorkspace(@RequestBody WorkspaceDto workspaceDto, @PathVariable Long id){
+    public ResponseEntity<Response> editWorkspace(@Valid @RequestBody WorkspaceDto workspaceDto, @PathVariable Long id){
         Response response=workspaceService.editWorkspace(workspaceDto,id);
         return ResponseEntity.status(response.isSuccess()?HttpStatus.OK:HttpStatus.NOT_FOUND).body(response);
     }
@@ -40,7 +41,7 @@ public class WorkspaceController {
         return ResponseEntity.status(response.isSuccess()?HttpStatus.OK:HttpStatus.NOT_FOUND).body(response);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{ownerId}")
     public ResponseEntity<Response> changeWorkspaceOwner(@RequestParam UUID ownerId, @PathVariable Long id){
         Response response=workspaceService.changeWorkspaceOwner(ownerId,id);
         return ResponseEntity.status(response.isSuccess()?HttpStatus.OK:HttpStatus.NOT_FOUND).body(response);

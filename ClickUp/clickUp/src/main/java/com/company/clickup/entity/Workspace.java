@@ -19,6 +19,7 @@ import javax.persistence.*;
 public class Workspace extends AbstractLongEntity {
     @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String color;
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     private User owner;

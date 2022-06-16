@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthServiceImpl authService;
     private JwtFilter jwtFilter;
 @Autowired
-    public SecurityConfig(@Lazy AuthServiceImpl authService, JwtFilter jwtFilter) {
+    public SecurityConfig(@Lazy AuthServiceImpl authService, @Lazy JwtFilter jwtFilter) {
         this.authService = authService;
     this.jwtFilter = jwtFilter;
 }
