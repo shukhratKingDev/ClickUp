@@ -4,14 +4,12 @@ import com.company.clickup.entity.enums.SystemRoleName;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
-
-import javax.management.relation.Role;
 import java.util.Date;
 
 @Component
 public class JwtProvider {
     private final String key="this is secret code for this project";
-    private final long expirationDate= 1000L *60*60*24*30*12;
+    private final long expirationDate= 1000L*60*60*24*30*12*1000;
     public String generateJwt(String username, SystemRoleName role){
         String jwt = Jwts.builder()
                 .setSubject(username)

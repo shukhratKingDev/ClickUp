@@ -1,5 +1,6 @@
 package com.company.clickup.controller;
 
+import com.company.clickup.dto.MemberDto;
 import com.company.clickup.dto.Response;
 import com.company.clickup.dto.WorkspaceDto;
 import com.company.clickup.entity.User;
@@ -41,9 +42,17 @@ public class WorkspaceController {
         return ResponseEntity.status(response.isSuccess()?HttpStatus.OK:HttpStatus.NOT_FOUND).body(response);
     }
 
-    @PutMapping("/{ownerId}")
-    public ResponseEntity<Response> changeWorkspaceOwner(@RequestParam UUID ownerId, @PathVariable Long id){
-        Response response=workspaceService.changeWorkspaceOwner(ownerId,id);
+    @PostMapping("/{id}")
+    public ResponseEntity<Response> addOrEditOrRemoveWorkspaceOwner(@RequestBody MemberDto memberDto , @PathVariable Long id){
+        Response response=workspaceService.addOrEditOrRemoveWorkspaceOwner(memberDto,id);
         return ResponseEntity.status(response.isSuccess()?HttpStatus.OK:HttpStatus.NOT_FOUND).body(response);
     }
+
+    @PutMapping("/join")
+    public ResponseEntity<Response> joinViaEmail(@RequestParam Long id , @CurrentUser User user){
+        Response response=workspaceService.joinViaEmail(id,user);
+        return ResponseEntity.status(response.isSuccess()?HttpStatus.OK:HttpStatus.NOT_FOUND).body(response);
+    }
+
+
 }
