@@ -1,22 +1,25 @@
 package com.company.clickup.entity;
 
 import com.company.clickup.entity.template.AbstractLongEntity;
-import com.company.clickup.entity.template.AbstractUUIDEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class View extends AbstractLongEntity {
+public class Category extends AbstractLongEntity {
     private String name;
-    @ManyToOne
-    private Icon iconId;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Project> projectId;
+    @Enumerated(EnumType.STRING)
+    private AccessType accessType;
+    private boolean archived;
+    private String color;
 }

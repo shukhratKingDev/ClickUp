@@ -7,16 +7,19 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class View extends AbstractLongEntity {
-    private String name;
-    @ManyToOne
-    private Icon iconId;
+public class TaskAttachment extends AbstractUUIDEntity {
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Task task;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Attachment attachment;
+    private boolean pinCoverImage;
+
 }

@@ -91,7 +91,7 @@ public class AuthServiceImpl implements UserDetailsService, AuthService {
     public Boolean sendEmail(String sendingEmail,String emailCode){
         try{
             SimpleMailMessage message=new SimpleMailMessage();
-            message.setFrom("webdeveloperprogrammer.1201@gmail.com");
+            message.setFrom("shukhratDev1201@gmail.com");
             message.setTo(sendingEmail);
             message.setSubject("Verify email");
             message.setText("<h1>Verification email</h1><button><a http://localhost:8080/api/auth/verifyEmail?emailCode=" + emailCode + "&email=" + sendingEmail + "'>Verify Email</a></button>");

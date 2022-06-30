@@ -3,7 +3,9 @@ package com.company.clickup.controller;
 import com.company.clickup.dto.MemberDto;
 import com.company.clickup.dto.Response;
 import com.company.clickup.dto.WorkspaceDto;
-import com.company.clickup.entity.User;
+import com.company.clickup.entity.*;
+import com.company.clickup.entity.enums.ActionType;
+import com.company.clickup.entity.enums.WorkspaceRoleName;
 import com.company.clickup.security.annotation.CurrentUser;
 import com.company.clickup.service.WorkspaceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -53,6 +56,32 @@ public class WorkspaceController {
         Response response=workspaceService.joinViaEmail(id,user);
         return ResponseEntity.status(response.isSuccess()?HttpStatus.OK:HttpStatus.NOT_FOUND).body(response);
     }
+
+    @GetMapping("/allWorkspace")
+    public ResponseEntity<List<Workspace>> getAllWorkspaces(@CurrentUser User user){
+    List<Workspace>workspaces=workspaceService.getAllWorkspaces(user);
+            return ResponseEntity.ok(workspaces);
+    }
+
+    @GetMapping("/allMembers")
+    public ResponseEntity<List<WorkspaceUser>> getAllMembers(@CurrentUser User user){
+        List<WorkspaceUser>workspaceUser=workspaceService.getAllMembers(user);
+        return ResponseEntity.ok(workspaceUser);
+    }
+
+    @GetMapping("/allGuests")
+    public ResponseEntity<List<WorkspaceUser>> getAllGuests(@CurrentUser User user){
+        List<WorkspaceUser>workspaceUser=workspaceService.getAllGuests(user);
+        return ResponseEntity.ok(workspaceUser);
+    }
+
+    @PutMapping("/addPermission")
+    public ResponseEntity<Response> addOrDeletePermission(@CurrentUser User user, @RequestBody Long workspaceId,@RequestBody String roleName, @RequestBody WorkspaceRoleName workspaceRoleName, @RequestBody UUID workspacePermissionId, @RequestBody ActionType actionType){
+
+    Response response=workspaceService.addOrDeleteWorkspacePermission(user,workspaceId,roleName,workspaceRoleName,workspacePermissionId,actionType);
+    return ResponseEntity.status(response.isSuccess()?HttpStatus.OK:HttpStatus.CONFLICT).body(response);
+    }
+
 
 
 }

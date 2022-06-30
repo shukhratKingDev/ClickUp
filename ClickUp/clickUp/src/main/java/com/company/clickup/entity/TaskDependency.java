@@ -1,22 +1,25 @@
 package com.company.clickup.entity;
 
+import com.company.clickup.entity.enums.DependencyType;
 import com.company.clickup.entity.template.AbstractLongEntity;
-import com.company.clickup.entity.template.AbstractUUIDEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class View extends AbstractLongEntity {
-    private String name;
-    @ManyToOne
-    private Icon iconId;
+public class TaskDependency extends AbstractLongEntity {
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Task task;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Task dependencyTask;
+    private DependencyType dependencyType;
 }
